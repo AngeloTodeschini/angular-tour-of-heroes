@@ -1,12 +1,33 @@
 <h2>My Heroes</h2>
+<button class="toggle-mode" title="toggle deletion mode" (click)="onCheckMode()">Mode</button>
+
+<div [hidden]="!checkMode">
+  <label class="check-all-label" for="checkAllBox">Check all</label>
+  <input type="checkbox" id="checkAllBox" name="checkAllBox" [value]="heroes" [(ngModel)]="masterCheck" (change)="checkAll($event, heroes)">
+</div>
+
 <ul class="heroes">
   <li *ngFor="let hero of heroes">
+
     <a routerLink="/detail/{{hero.id}}">
       <span class="badge">{{ hero.id }}</span> {{ hero.name }}
     </a>
-    <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+
+    <div [hidden]="checkMode">
+      <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+    </div>
+
+    <div [hidden]="!checkMode">
+      <input class="form-check-input" type="checkbox" id="heroCheckbox" name="heroCheckbox" [value]="hero" [(ngModel)]="hero.isSelected" (change)="checkHero($event, hero)">
+    </div>
+
   </li>
 </ul>
+
+<div [hidden]="!checkMode">
+  <button class="delete-selected" title="delete selected hero" (click)="deleteSelected(selectedItems)">Delete selected</button>
+</div>
+
 <!-- <div>
   <label for="new-hero">Hero Name: </label>
   <input id="new-hero" #heroName />

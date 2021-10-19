@@ -31,6 +31,7 @@ export class HeroFormComponent implements OnInit {
     this.heroService.addHero({ name, alterEgo, power } as Hero).subscribe(hero => {
       this.heroes.push(hero);
     });
+    window.alert('Hero successfully created!');
   }
 
   ngOnInit() {
